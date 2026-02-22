@@ -354,3 +354,99 @@ body {
 @keyframes shine-sweep {
   to { left: 125%; }
 }
+
+/* ===== Gallery — Masonry Grid ===== */
+.masonry-grid {
+  column-count: 4;
+  column-gap: 20px;
+}
+
+@media (max-width: 1400px) {
+  .masonry-grid { column-count: 3; }
+}
+
+@media (max-width: 900px) {
+  .masonry-grid { column-count: 2; }
+}
+
+@media (max-width: 600px) {
+  .masonry-grid {
+    column-count: 2;
+    column-gap: 12px;
+  }
+  .masonry-item {
+    margin-bottom: 12px;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  animation: masonry-fadeInUp 0.6s ease-out forwards;
+}
+
+.masonry-item:hover {
+  opacity: 0.85;
+}
+
+/* Staggered animation delays */
+.masonry-item:nth-child(1)  { animation-delay: 0.05s; }
+.masonry-item:nth-child(2)  { animation-delay: 0.10s; }
+.masonry-item:nth-child(3)  { animation-delay: 0.15s; }
+.masonry-item:nth-child(4)  { animation-delay: 0.20s; }
+.masonry-item:nth-child(5)  { animation-delay: 0.25s; }
+.masonry-item:nth-child(6)  { animation-delay: 0.30s; }
+.masonry-item:nth-child(7)  { animation-delay: 0.35s; }
+.masonry-item:nth-child(8)  { animation-delay: 0.40s; }
+.masonry-item:nth-child(9)  { animation-delay: 0.45s; }
+.masonry-item:nth-child(10) { animation-delay: 0.50s; }
+.masonry-item:nth-child(11) { animation-delay: 0.55s; }
+.masonry-item:nth-child(12) { animation-delay: 0.60s; }
+.masonry-item:nth-child(13) { animation-delay: 0.65s; }
+.masonry-item:nth-child(14) { animation-delay: 0.70s; }
+.masonry-item:nth-child(15) { animation-delay: 0.75s; }
+.masonry-item:nth-child(16) { animation-delay: 0.80s; }
+.masonry-item:nth-child(17) { animation-delay: 0.85s; }
+.masonry-item:nth-child(18) { animation-delay: 0.90s; }
+.masonry-item:nth-child(19) { animation-delay: 0.95s; }
+.masonry-item:nth-child(20) { animation-delay: 1.00s; }
+
+@keyframes masonry-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Gallery — Carousel Auto-Scroll ===== */
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  animation: carousel-autoScroll 70s linear infinite;
+  will-change: transform;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes carousel-autoScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.carousel-wrapper {
+  cursor: grab;
+}
+
+.carousel-wrapper:active {
+  cursor: grabbing;
+}

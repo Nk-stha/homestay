@@ -55,6 +55,7 @@ export default {
         'float': 'float 20s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'fade-in-up': 'fade-in-up 0.6s ease-out',
+        'auto-scroll': 'autoScroll 70s linear infinite',
       },
       keyframes: {
         float: {

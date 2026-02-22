@@ -32,8 +32,8 @@ export function Navbar() {
             </span>
           </div>
 
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+          <div className="hidden lg:block">
+            <div className="ml-10 flex items-baseline space-x-4">
               <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#lodge">
                 The Lodge
               </a>
@@ -42,6 +42,12 @@ export function Navbar() {
               </a>
               <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#gallery">
                 Gallery
+              </a>
+              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#blog">
+                Blogs
+              </a>
+              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#farm-to-table">
+                Farm to Table
               </a>
               <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#story">
                 Our Story
@@ -52,7 +58,7 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="-mr-2 flex md:hidden">
+          <div className="-mr-2 flex lg:hidden">
             <button
               className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-accent-gold focus:outline-none"
               onClick={() => setIsOpen(!isOpen)}
@@ -67,7 +73,7 @@ export function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background-dark/95 backdrop-blur-md">
             <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#lodge">
               The Lodge
@@ -77,6 +83,12 @@ export function Navbar() {
             </a>
             <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#gallery">
               Gallery
+            </a>
+            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#blog">
+              Blogs
+            </a>
+            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#farm-to-table">
+              Farm to Table
             </a>
             <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#story">
               Our Story
