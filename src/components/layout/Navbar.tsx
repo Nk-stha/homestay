@@ -49,6 +49,9 @@ export function Navbar() {
               <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#farm-to-table">
                 Farm to Table
               </a>
+              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#packages">
+                Packages
+              </a>
               <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#story">
                 Our Story
               </a>
@@ -89,6 +92,9 @@ export function Navbar() {
             </a>
             <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#farm-to-table">
               Farm to Table
+            </a>
+            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#packages">
+              Packages
             </a>
             <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#story">
               Our Story
