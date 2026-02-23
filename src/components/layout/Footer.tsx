@@ -17,12 +17,12 @@ export function Footer() {
             Our Commitment to Responsible Wildlife Travel
           </h3>
           <p className="text-white/80 text-sm leading-relaxed mb-6 font-light">
-            At <strong className="text-white">Vanavasam</strong>, we believe that responsible wildlife tourism begins with protecting the environment that makes Bardia so special.
+            At <strong className="text-white">Bardia Eco-Friendly Homestay</strong>, we believe that responsible wildlife tourism begins with protecting the environment that makes Bardia so special.
           </p>
         </div>
 
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-xs text-white/60">Copyright Vanavasam 2024</div>
+          <div className="text-xs text-white/60">Copyright Bardia Eco-Friendly Homestay 2024</div>
         </div>
       </div>
     </footer>

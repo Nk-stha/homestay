@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 /* ── Data ── */
+
+type TabKey = 'homestay' | 'safari';
 
 interface PackageData {
   icon: string;
@@ -13,85 +16,130 @@ interface PackageData {
   featured?: boolean;
 }
 
-const PACKAGES: PackageData[] = [
-  {
-    icon: '🌿',
-    name: 'Canopy',
-    duration: '2 Nights · 3 Days',
-    price: '12,000',
-    note: 'Twin sharing',
-    description: 'Perfect for those seeking a brief escape. Experience the forest\'s magic in a weekend that feels like a week.',
-    features: [
-      '2 Guided Morning Walks',
-      '1 Jeep Safari at Dawn',
-      'All Organic Meals — Farm to Table',
-      'Bonfire Evening with Stories',
-      'Naturalist Support On-Call',
-    ],
-  },
-  {
-    icon: '🐯',
-    name: 'Deep Wild',
-    duration: '4 Nights · 5 Days',
-    price: '28,000',
-    note: 'Twin sharing',
-    description: 'The sweet spot between exploration and immersion. Enough time to truly slow down and let the forest work its magic.',
-    features: [
-      '4 Guided Forest Walks (Dawn & Dusk)',
-      '3 Jeep Safaris — Core Zone Access',
-      'Night Forest Trail Experience',
-      'Birdwatching Dawn Walks',
-      'Village Trek with Local Meal',
-      'Dedicated Naturalist Guide',
-    ],
-    featured: true,
-  },
-  {
-    icon: '🦅',
-    name: 'Sovereignty',
-    duration: '7 Nights · 8 Days',
-    price: '52,000',
-    note: 'Twin sharing',
-    description: 'Total immersion. By day five, you stop counting days. This is where transformation happens quietly.',
-    features: [
-      'Daily Guided Nature Experiences',
-      '5 Safaris — Multiple Zones',
-      'Wildlife Photography Workshop',
-      'Forest Meditation Sessions',
-      'Private Wilderness Camp Night',
-      'All Transfers Included',
-    ],
-  },
-];
-
-const COMPARISON_ROWS = [
-  { feature: 'Organic Farm-to-Table Meals', canopy: true, deep: true, sov: true },
-  { feature: 'Jeep Safari (Core Zone)', canopy: true, deep: true, sov: true },
-  { feature: 'Guided Forest Walks', canopy: true, deep: true, sov: true },
-  { feature: 'Naturalist Guide', canopy: 'On-call', deep: 'Dedicated', sov: 'Personal' },
-  { feature: 'Night Forest Trail', canopy: false, deep: true, sov: true },
-  { feature: 'Village Cultural Trek', canopy: false, deep: true, sov: true },
-  { feature: 'Photography Workshop', canopy: false, deep: false, sov: true },
-  { feature: 'Private Wilderness Camp', canopy: false, deep: false, sov: true },
-  { feature: 'All Transfers', canopy: false, deep: false, sov: true },
-];
-
-
-/* ── Helpers ── */
-
-function CellValue({ value }: { value: boolean | string }) {
-  if (typeof value === 'string') return <span className="text-soft-earth/70 text-sm">{value}</span>;
-  if (value) return <span className="text-golden-hour text-lg">✓</span>;
-  return <span className="text-soft-earth/30 text-lg">—</span>;
+interface TabData {
+  label: string;
+  packages: PackageData[];
 }
+
+const TAB_DATA: Record<TabKey, TabData> = {
+  homestay: {
+    label: 'Homestay',
+    packages: [
+      {
+        icon: '🏡',
+        name: 'Rustic',
+        duration: '1 Night · 2 Days',
+        price: '6,000',
+        note: 'Twin sharing',
+        description: 'A quick dip into rural tranquility. Wake up to birdsong, eat farm-fresh meals, and breathe.',
+        features: [
+          'Cozy Room with Garden View',
+          'All Organic Meals — Farm to Table',
+          'Guided Farm Walk',
+          'Evening Bonfire with Tea',
+          'Local Village Experience',
+        ],
+      },
+      {
+        icon: '🌾',
+        name: 'Farmstead',
+        duration: '2 Nights · 3 Days',
+        price: '14,000',
+        note: 'Twin sharing',
+        description: 'The perfect weekend escape. Enough time to unwind, explore, and fall in love with the slow life.',
+        features: [
+          'Premium Room with Forest View',
+          'All Organic Meals — Farm to Table',
+          'Farm-to-Kitchen Cooking Class',
+          'Guided Nature Walk & Birdwatching',
+          'Evening Bonfire with Local Stories',
+          'Yoga / Meditation Session',
+        ],
+        featured: true,
+      },
+      {
+        icon: '🌿',
+        name: 'Immersion',
+        duration: '4 Nights · 5 Days',
+        price: '32,000',
+        note: 'Twin sharing',
+        description: 'Live the farm life fully. By day three, you stop checking your phone. That\'s the point.',
+        features: [
+          'Best Room with Panoramic View',
+          'All Organic Meals + Special Dinners',
+          'Daily Farm Activities & Harvest',
+          'Cooking Class with Local Chef',
+          'Village Cultural Trek',
+          'All Transfers Included',
+        ],
+      },
+    ],
+  },
+  safari: {
+    label: 'Safari',
+    packages: [
+      {
+        icon: '🌿',
+        name: 'Canopy',
+        duration: '2 Nights · 3 Days',
+        price: '12,000',
+        note: 'Twin sharing',
+        description: 'Perfect for those seeking a brief escape. Experience the forest\'s magic in a weekend that feels like a week.',
+        features: [
+          '2 Guided Morning Walks',
+          '1 Jeep Safari at Dawn',
+          'All Organic Meals — Farm to Table',
+          'Bonfire Evening with Stories',
+          'Naturalist Support On-Call',
+        ],
+      },
+      {
+        icon: '🐯',
+        name: 'Deep Wild',
+        duration: '4 Nights · 5 Days',
+        price: '28,000',
+        note: 'Twin sharing',
+        description: 'The sweet spot between exploration and immersion. Enough time to truly slow down and let the forest work its magic.',
+        features: [
+          '4 Guided Forest Walks (Dawn & Dusk)',
+          '3 Jeep Safaris — Core Zone Access',
+          'Night Forest Trail Experience',
+          'Birdwatching Dawn Walks',
+          'Village Trek with Local Meal',
+          'Dedicated Naturalist Guide',
+        ],
+        featured: true,
+      },
+      {
+        icon: '🦅',
+        name: 'Sovereignty',
+        duration: '7 Nights · 8 Days',
+        price: '52,000',
+        note: 'Twin sharing',
+        description: 'Total immersion. By day five, you stop counting days. This is where transformation happens quietly.',
+        features: [
+          'Daily Guided Nature Experiences',
+          '5 Safaris — Multiple Zones',
+          'Wildlife Photography Workshop',
+          'Forest Meditation Sessions',
+          'Private Wilderness Camp Night',
+          'All Transfers Included',
+        ],
+      },
+    ],
+  },
+};
+
 
 /* ── Component ── */
 
 export function PackagesPage() {
   const hero = useScrollAnimation();
   const grid = useScrollAnimation();
-  const compare = useScrollAnimation();
   const ctaRef = useScrollAnimation();
+  const [activeTab, setActiveTab] = useState<TabKey>('homestay');
+
+  const current = TAB_DATA[activeTab];
 
   return (
     <>
@@ -121,13 +169,31 @@ export function PackagesPage() {
         </div>
       </section>
 
+      {/* ════════ TABS ════════ */}
+      <div className="flex justify-center gap-8 mb-14 px-4">
+        {(Object.keys(TAB_DATA) as TabKey[]).map((key) => (
+          <button
+            key={key}
+            onClick={() => setActiveTab(key)}
+            className={`font-accent text-xs tracking-[0.16em] uppercase pb-2 border-b-2 transition-all duration-300 ${
+              activeTab === key
+                ? 'text-bark-soil dark:text-soft-earth border-golden-hour font-semibold'
+                : 'text-gray-400 border-transparent hover:text-gray-600'
+            }`}
+          >
+            {TAB_DATA[key].label}
+          </button>
+        ))}
+      </div>
+
       {/* ════════ PACKAGES GRID ════════ */}
       <section className="px-4 sm:px-10 pb-20 md:pb-28 max-w-[1400px] mx-auto">
         <div
           ref={grid.ref}
+          key={activeTab}
           className={`grid grid-cols-1 lg:grid-cols-3 gap-8 scroll-fade-in ${grid.isVisible ? 'visible' : ''}`}
         >
-          {PACKAGES.map((pkg, i) => (
+          {current.packages.map((pkg, i) => (
             <div
               key={pkg.name}
               className={`bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-card card-lift relative scroll-fade-in stagger-${i + 1} ${grid.isVisible ? 'visible' : ''} ${
@@ -181,45 +247,6 @@ export function PackagesPage() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* ════════ COMPARISON TABLE ════════ */}
-      <section className="py-20 md:py-24 px-4 sm:px-10 bg-deep-forest relative grain-texture">
-        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, #C8843A 50%, transparent 100%)' }} />
-
-        <div
-          ref={compare.ref}
-          className={`text-center max-w-3xl mx-auto mb-16 scroll-fade-in ${compare.isVisible ? 'visible' : ''}`}
-        >
-          <span className="font-accent text-[10px] tracking-[0.28em] uppercase text-golden-hour block mb-5">Compare Packages</span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-soft-earth leading-tight">
-            What's <em className="text-golden-hour italic">Included</em>
-            <br />
-            in Each Journey
-          </h2>
-        </div>
-
-        <div className="max-w-[1200px] mx-auto bg-forest-mid rounded-2xl overflow-hidden shadow-xl overflow-x-auto">
-          {/* Header */}
-          <div className="grid grid-cols-[2fr_1fr_1fr_1fr] min-w-[600px] gap-0.5 bg-deep-forest p-0.5">
-            {['Features', 'Canopy', 'Deep Wild', 'Sovereignty'].map((h) => (
-              <div key={h} className={`py-5 px-5 bg-forest-mid font-accent text-[11px] tracking-[0.16em] uppercase text-golden-hour font-medium ${h === 'Features' ? 'text-left' : 'text-center'}`}>
-                {h}
-              </div>
-            ))}
-          </div>
-          {/* Body */}
-          <div className="grid gap-0.5 bg-deep-forest p-0.5">
-            {COMPARISON_ROWS.map((row) => (
-              <div key={row.feature} className="grid grid-cols-[2fr_1fr_1fr_1fr] min-w-[600px] gap-0.5 bg-deep-forest group">
-                <div className="py-4 px-5 bg-forest-mid text-soft-earth text-sm group-hover:bg-living-canopy transition-colors duration-300">{row.feature}</div>
-                <div className="py-4 px-5 bg-forest-mid flex items-center justify-center group-hover:bg-living-canopy transition-colors duration-300"><CellValue value={row.canopy} /></div>
-                <div className="py-4 px-5 bg-forest-mid flex items-center justify-center group-hover:bg-living-canopy transition-colors duration-300"><CellValue value={row.deep} /></div>
-                <div className="py-4 px-5 bg-forest-mid flex items-center justify-center group-hover:bg-living-canopy transition-colors duration-300"><CellValue value={row.sov} /></div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

@@ -1,104 +1,121 @@
 import { useState, useEffect } from 'react';
 
+const LEFT_LINKS = [
+  { label: 'Home', href: '#' },
+  { label: 'The Lodge', href: '#lodge' },
+  { label: 'Safaris', href: '#safaris' },
+  { label: 'Gallery', href: '#gallery' },
+];
+
+const RIGHT_LINKS = [
+  { label: 'Farm to Table', href: '#farm-to-table' },
+  { label: 'Packages', href: '#packages' },
+  { label: 'Bardiya National Park', href: '#blog' },
+  { label: 'Contact', href: '#contact' },
+];
+
+const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const linkClass =
+    'font-accent text-[11px] tracking-[0.16em] uppercase text-white/80 hover:text-accent-gold transition-colors duration-300';
+
   return (
-    <nav 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-background-dark/95 backdrop-blur-md shadow-lg border-b border-white/10' 
-          : 'bg-transparent'
+    <nav
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-background-dark/95 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
+          : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex-shrink-0 flex items-center space-x-3">
-            <svg className="w-10 h-10 text-accent-gold" fill="currentColor" viewBox="0 0 24 24">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+        {/* ── Desktop: centered logo with split links ── */}
+        <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] items-center gap-14">
+          {/* Left links */}
+          <div className="flex items-center justify-end gap-8">
+            {LEFT_LINKS.map((link) => (
+              <a key={link.href} href={link.href} className={linkClass}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          {/* Center logo */}
+          <a href="#" className="flex flex-col items-center gap-1 group">
+            <svg
+              className="w-10 h-10 text-accent-gold group-hover:scale-110 transition-transform duration-300"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
             </svg>
-            <span className="text-white font-display font-bold text-xl tracking-widest uppercase">
-              Vanavasam
+            <span className="font-display text-white text-sm tracking-[0.15em] uppercase leading-none">
+              Bardia Eco-Friendly Homestay
             </span>
-          </div>
 
-          <div className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#lodge">
-                The Lodge
-              </a>
-              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#safaris">
-                Safaris
-              </a>
-              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#gallery">
-                Gallery
-              </a>
-              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#blog">
-                Blogs
-              </a>
-              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#farm-to-table">
-                Farm to Table
-              </a>
-              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#packages">
-                Packages
-              </a>
-              <a className="text-white hover:text-accent-gold px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#story">
-                Our Story
-              </a>
-              <a className="bg-primary hover:bg-opacity-90 text-white px-5 py-2 rounded-full text-sm font-medium transition-all shadow-lg hover:shadow-primary/50" href="#book">
-                Book Now
-              </a>
-            </div>
-          </div>
+          </a>
 
-          <div className="-mr-2 flex lg:hidden">
-            <button
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-accent-gold focus:outline-none"
-              onClick={() => setIsOpen(!isOpen)}
-              type="button"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {/* Right links */}
+          <div className="flex items-center justify-start gap-8">
+            {RIGHT_LINKS.map((link) => (
+              <a key={link.href} href={link.href} className={linkClass}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Mobile: logo left, hamburger right ── */}
+        <div className="flex lg:hidden items-center justify-between">
+          <a href="#" className="flex items-center gap-2">
+            <svg className="w-8 h-8 text-accent-gold" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
+            </svg>
+            <span className="font-display text-white text-xs tracking-[0.12em] uppercase">
+              Bardia Eco-Friendly Homestay
+            </span>
+          </a>
+
+          <button
+            className="p-2 text-white hover:text-accent-gold transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            type="button"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+              )}
+            </svg>
+          </button>
         </div>
       </div>
 
+      {/* ── Mobile menu ── */}
       {isOpen && (
         <div className="lg:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background-dark/95 backdrop-blur-md">
-            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#lodge">
-              The Lodge
-            </a>
-            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#safaris">
-              Safaris
-            </a>
-            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#gallery">
-              Gallery
-            </a>
-            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#blog">
-              Blogs
-            </a>
-            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#farm-to-table">
-              Farm to Table
-            </a>
-            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#packages">
-              Packages
-            </a>
-            <a className="text-white hover:text-accent-gold block px-3 py-2 rounded-md text-base font-medium" href="#story">
-              Our Story
-            </a>
+          <div className="px-4 pt-4 pb-6 space-y-1 bg-background-dark/95 backdrop-blur-md border-t border-white/10">
+            {ALL_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="block px-3 py-2.5 font-accent text-[11px] tracking-[0.14em] uppercase text-white/80 hover:text-accent-gold transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       )}

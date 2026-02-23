@@ -65,7 +65,7 @@ export function FarmToTablePage() {
           </h1>
 
           <p className="text-base sm:text-lg font-light leading-relaxed-plus text-soft-earth/70 max-w-md">
-            Every meal at Vanavasam begins in our organic farm. What you taste
+            Every meal at Bardia Eco-Friendly Homestay begins in our organic farm. What you taste
             today was growing in the earth yesterday — no journey longer than
             200 meters from soil to plate.
           </p>

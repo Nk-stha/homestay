@@ -68,11 +68,11 @@ export function IntroSection() {
             ref={body.ref}
             className={`text-xl italic text-gray-600 dark:text-gray-300 mb-8 font-light scroll-fade-in stagger-2 ${body.isVisible ? 'visible' : ''}`}
           >
-            Welcome to Vanavasam, a jungle paradise lodge where you will soon feel like home.
+            Welcome to Bardia Eco-Friendly Homestay, a jungle paradise lodge where you will soon feel like home.
           </p>
 
           <p className={`text-gray-700 dark:text-gray-400 leading-relaxed mb-12 max-w-2xl scroll-fade-in stagger-3 ${body.isVisible ? 'visible' : ''}`}>
-            Nestled on the edge of Bardia National Park, Vanavasam is a place for travelers to escape the roar of the city and find the roar of the tiger. It's a place of adventure and discovery, a pristine wilderness, where humans, elephants, rhinoceroses, tigers and many more live side by side...
+            Nestled on the edge of Bardia National Park, Bardia Eco-Friendly Homestay is a place for travelers to escape the roar of the city and find the roar of the tiger. It's a place of adventure and discovery, a pristine wilderness, where humans, elephants, rhinoceroses, tigers and many more live side by side...
           </p>
 
           <div
