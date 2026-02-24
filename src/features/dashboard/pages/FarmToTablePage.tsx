@@ -40,7 +40,7 @@ export function FarmToTablePage() {
   return (
     <>
       {/* ════════ HERO ════════ */}
-      <section className="relative min-h-[70vh] md:h-[85vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[70vh] md:h-screen flex items-center overflow-hidden">
         <div
           className="absolute inset-0 z-0"
           style={{ background: 'linear-gradient(135deg, #4A6741 0%, #2A3E27 50%, #1C2B1A 100%)' }}

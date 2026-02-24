@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 
 const LEFT_LINKS = [
   { label: 'Home', href: '#' },
-  { label: 'The Lodge', href: '#lodge' },
-  { label: 'Safaris', href: '#safaris' },
   { label: 'Gallery', href: '#gallery' },
+  { label: 'Farm to Table', href: '#farm-to-table' },
 ];
 
 const RIGHT_LINKS = [
-  { label: 'Farm to Table', href: '#farm-to-table' },
   { label: 'Packages', href: '#packages' },
   { label: 'Bardiya National Park', href: '#blog' },
   { label: 'Contact', href: '#contact' },
@@ -34,7 +32,7 @@ export function Navbar() {
       className={`fixed w-full z-50 transition-all duration-500 ${
         isScrolled
           ? 'bg-background-dark/95 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
-          : 'bg-transparent py-5'
+          : 'bg-gradient-to-b from-black/50 to-transparent py-5'
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
@@ -58,8 +56,8 @@ export function Navbar() {
             >
               <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
             </svg>
-            <span className="font-display text-white text-sm tracking-[0.15em] uppercase leading-none">
-              Bardia Eco-Friendly Homestay
+            <span className="font-display text-white text-sm tracking-[0.15em] uppercase leading-tight text-center">
+              Bardia Eco-Friendly<br />Homestay
             </span>
 
           </a>
@@ -81,7 +79,7 @@ export function Navbar() {
               <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
             </svg>
             <span className="font-display text-white text-xs tracking-[0.12em] uppercase">
-              Bardia Eco-Friendly Homestay
+              Bardia Eco-Friendly<br />Homestay
             </span>
           </a>
 
