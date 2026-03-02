@@ -23,7 +23,7 @@ export function WildlifeSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <section id="gallery" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Auto-scrolling background images */}
       {wildlifeImages.map((image, index) => (
         <div
@@ -80,9 +80,9 @@ export function WildlifeSection() {
         </div>
 
         <div className={`scroll-fade-in stagger-4 ${content.isVisible ? 'visible' : ''}`}>
-          <button className="btn-brush btn-brush-gold">
+          <a href="/gallery" className="btn-brush btn-brush-gold">
             Our Gallery
-          </button>
+          </a>
         </div>
       </div>
     </section>

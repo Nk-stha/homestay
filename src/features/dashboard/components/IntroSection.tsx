@@ -4,7 +4,7 @@ export function IntroSection() {
   const heading = useScrollAnimation();
   const quote = useScrollAnimation();
   const body = useScrollAnimation();
-  const cta = useScrollAnimation();
+
 
   return (
     <section className="py-24 bg-background-light dark:bg-surface-dark relative overflow-hidden">
@@ -75,14 +75,7 @@ export function IntroSection() {
             Nestled on the edge of Bardia National Park, Bardia Eco-Friendly Homestay is a place for travelers to escape the roar of the city and find the roar of the tiger. It's a place of adventure and discovery, a pristine wilderness, where humans, elephants, rhinoceroses, tigers and many more live side by side...
           </p>
 
-          <div
-            ref={cta.ref}
-            className={`scroll-fade-in stagger-4 ${cta.isVisible ? 'visible' : ''}`}
-          >
-            <button className="btn-brush">
-              More details
-            </button>
-          </div>
+
         </div>
       </div>
     </section>

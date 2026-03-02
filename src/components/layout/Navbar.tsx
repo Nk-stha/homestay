@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const LEFT_LINKS = [
-  { label: 'Home', href: '#' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Farm to Table', href: '#farm-to-table' },
+  { label: 'Home', href: '/' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Farm to Table', href: '/farm-to-table' },
 ];
 
 const RIGHT_LINKS = [
-  { label: 'Packages', href: '#packages' },
-  { label: 'Bardiya National Park', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Packages', href: '/packages' },
+  { label: 'Bardiya National Park', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
@@ -41,47 +42,58 @@ export function Navbar() {
           {/* Left links */}
           <div className="flex items-center justify-end gap-8">
             {LEFT_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className={linkClass}>
-                {link.label}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link key={link.href} to={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
+              ) : (
+                <a key={link.href} href={link.href} className={linkClass}>
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
 
           {/* Center logo */}
-          <a href="#" className="flex flex-col items-center gap-1 group">
-            <svg
-              className="w-10 h-10 text-accent-gold group-hover:scale-110 transition-transform duration-300"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-            </svg>
+          <Link to="/" className="flex flex-col items-center gap-1 group">
+            <img
+              src="/logo.png"
+              alt="Bardia Eco-Friendly Homestay"
+              className="h-16 w-auto group-hover:scale-110 transition-transform duration-300"
+            />
             <span className="font-display text-white text-sm tracking-[0.15em] uppercase leading-tight text-center">
               Bardia Eco-Friendly<br />Homestay
             </span>
-
-          </a>
+          </Link>
 
           {/* Right links */}
           <div className="flex items-center justify-start gap-8">
             {RIGHT_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className={linkClass}>
-                {link.label}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link key={link.href} to={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
+              ) : (
+                <a key={link.href} href={link.href} className={linkClass}>
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
         </div>
 
         {/* ── Mobile: logo left, hamburger right ── */}
         <div className="flex lg:hidden items-center justify-between">
-          <a href="#" className="flex items-center gap-2">
-            <svg className="w-8 h-8 text-accent-gold" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-            </svg>
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src="/logo.png"
+              alt="Bardia Eco-Friendly Homestay"
+              className="h-10 w-auto"
+            />
             <span className="font-display text-white text-xs tracking-[0.12em] uppercase">
               Bardia Eco-Friendly<br />Homestay
             </span>
-          </a>
+          </Link>
 
           <button
             className="p-2 text-white hover:text-accent-gold transition-colors"
@@ -105,14 +117,25 @@ export function Navbar() {
         <div className="lg:hidden">
           <div className="px-4 pt-4 pb-6 space-y-1 bg-background-dark/95 backdrop-blur-md border-t border-white/10">
             {ALL_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="block px-3 py-2.5 font-accent text-[11px] tracking-[0.14em] uppercase text-white/80 hover:text-accent-gold transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="block px-3 py-2.5 font-accent text-[11px] tracking-[0.14em] uppercase text-white/80 hover:text-accent-gold transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="block px-3 py-2.5 font-accent text-[11px] tracking-[0.14em] uppercase text-white/80 hover:text-accent-gold transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
         </div>

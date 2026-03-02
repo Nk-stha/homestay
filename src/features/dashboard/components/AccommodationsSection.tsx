@@ -1,22 +1,9 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const rooms = [
-  {
-    title: 'The Canopy Suite',
-    description: 'Panoramic views of the forest edge with handcrafted interiors.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHe3DX3gjfuX_LvCcHO65_oMP7YUAay6SYQcBpAn7MPd3y8_Rlv5-g3gOZJMhwR8X1zy0_fxKBwcB3iTCVi2PSD7uNrTWm7Q7L-Lhy4FBinNPULFgoTibCkchUV4eDNpxpvse0xpQJBW9zJsBbU5t2_aJWHlJ47fhm2pTrN8OOaX2uowneK5Ai-GBCI2KXudBfHVSD1Dlz99r_qQTM5biQ77yb5p12GAHZNxPoBpsg0sGGFnlUE_m_RgGVVFfwlfn6esTuVH-Gsw',
-  },
-  {
-    title: 'Garden Cottage',
-    description: 'Private garden access and traditional Tharu architecture.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD6L180H2Lbc_OpixWKZ9OvC9PMsAfekS4A4q-h4EQtLCe0cI3MjCmxIRj1OQ4tTlwZDd9Elgw0RR_FH1BeBEWl1BB62m3eqbiCNSV99WgWLBBdFJs64ZpwmgsimwfHEGBhHeFrlrAtqQdEIQk6Du0GW0x7H47pjYLBMfUHUy9A5l1gZf5vYlZ6bp6xFbU4rG1mYLhe2SLmVRHK9YoPP9YqkYBOFCK0HSPLm2zhzx-R-w-8-tG1rcRFjxw005Vg0AcmQGOkrJxO7Q',
-    offset: true,
-  },
-  {
-    title: 'Heritage Room',
-    description: 'Immerse yourself in history with authentic clay walls.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwsRUegpsrfeb-BnMHW9QgFUv0YjZd8gxPxuX8piS3O6_jYP7tErsgJHjkYSjD19-i_BjkeJ4PHwAg_dYelCnwNG0dMCkqeQ-1xhFdVnZmAC1uHGCaPwkPh27qieeHlrEScqqPFpWYGorewRAOgbY4xrfCsSMB7Rzveq9Qwfu23VE9Jhn8YGJY3SW7rrB4WbWpwzt3pCnB0JwMX3frjrVWfVjvs1HrKRafzkqFe2rR3tuuHbIOI8T7rxTdmizaZDOn-rdW2FHFQw',
-  },
+  { image: '/gallery/room1.jpg' },
+  { image: '/gallery/room2.jpg', offset: true },
+  { image: '/gallery/room5.jpg' },
 ];
 
 export function AccommodationsSection() {
@@ -64,17 +51,10 @@ export function AccommodationsSection() {
               } ${cards.isVisible ? 'visible' : ''}`}
             >
               <img
-                alt={room.title}
+                alt={`Room ${index + 1}`}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 src={room.image}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-white font-display text-2xl mb-2">{room.title}</h3>
-                <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                  {room.description}
-                </p>
-              </div>
             </div>
           ))}
         </div>
@@ -90,9 +70,9 @@ export function AccommodationsSection() {
           ref={cta.ref}
           className={`text-center mt-12 scroll-fade-in stagger-2 ${cta.isVisible ? 'visible' : ''}`}
         >
-          <button className="btn-brush btn-brush-primary">
+          <a href="/gallery" className="btn-brush btn-brush-primary">
             View Accommodations
-          </button>
+          </a>
         </div>
       </div>
     </section>

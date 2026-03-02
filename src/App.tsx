@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HomePage } from '@/features/dashboard/pages/HomePage';
@@ -8,42 +8,28 @@ import { FarmToTablePage } from '@/features/dashboard/pages/FarmToTablePage';
 import { PackagesPage } from '@/features/dashboard/pages/PackagesPage';
 import { ContactPage } from '@/features/dashboard/pages/ContactPage';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
+import { ScrollToTopOnNavigate } from '@/components/common/ScrollToTopOnNavigate';
 import { ContactButtons } from '@/components/common/ContactButtons';
 
 function App() {
-  const [page, setPage] = useState(window.location.hash);
-
-  useEffect(() => {
-    const onHashChange = () => setPage(window.location.hash);
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
-
-  const renderPage = () => {
-    switch (page) {
-      case '#gallery':
-        return <GalleryPage />;
-      case '#blog':
-        return <BlogPage />;
-      case '#farm-to-table':
-        return <FarmToTablePage />;
-      case '#packages':
-        return <PackagesPage />;
-      case '#contact':
-        return <ContactPage />;
-      default:
-        return <HomePage />;
-    }
-  };
-
   return (
-    <div className="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-body antialiased transition-colors duration-300">
-      <Navbar />
-      {renderPage()}
-      <Footer />
-      <ScrollToTop />
-      <ContactButtons />
-    </div>
+    <BrowserRouter>
+      <ScrollToTopOnNavigate />
+      <div className="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-body antialiased transition-colors duration-300">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/farm-to-table" element={<FarmToTablePage />} />
+          <Route path="/packages" element={<PackagesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+        <Footer />
+        <ScrollToTop />
+        <ContactButtons />
+      </div>
+    </BrowserRouter>
   );
 }
 

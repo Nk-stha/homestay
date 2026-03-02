@@ -34,11 +34,7 @@ export function SafariSection() {
           We find Walking through Bardia National Park is one of the greatest ways to explore the jungle and see some wildlife. Immerse yourself in the wilderness and let it touch your soul, as you observe every detail around you, like paw prints or claw marks on trees.
         </p>
 
-        <div className={`scroll-fade-in stagger-4 ${content.isVisible ? 'visible' : ''}`}>
-          <button className="btn-brush btn-brush-gold">
-            Our Activities
-          </button>
-        </div>
+
       </div>
     </section>
   );

@@ -4,7 +4,6 @@ import { TestimonialSection } from '../components/TestimonialSection';
 import { AccommodationsSection } from '../components/AccommodationsSection';
 import { SafariSection } from '../components/SafariSection';
 import { PackagesSection } from '../components/PackagesSection';
-import { HostsSection } from '../components/HostsSection';
 import { WildlifeSection } from '../components/WildlifeSection';
 
 export function HomePage() {
@@ -16,7 +15,6 @@ export function HomePage() {
       <AccommodationsSection />
       <SafariSection />
       <PackagesSection />
-      <HostsSection />
       <WildlifeSection />
     </>
   );
