@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HomePage } from '@/features/dashboard/pages/HomePage';
@@ -13,7 +13,7 @@ import { ContactButtons } from '@/components/common/ContactButtons';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTopOnNavigate />
       <div className="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-body antialiased transition-colors duration-300">
         <Navbar />
@@ -29,7 +29,7 @@ function App() {
         <ScrollToTop />
         <ContactButtons />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

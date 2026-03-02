@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { Link } from 'react-router-dom';
 
 /* ── Types matching API responses ── */
 
@@ -212,9 +213,9 @@ export function PackagesPage() {
             Availability fills up 6-8 weeks ahead, especially for weekends and
             holidays. Reserve your dates now and we'll take care of everything.
           </p>
-          <button className="px-10 py-4 border-2 border-soft-earth/30 text-soft-earth font-accent text-[12px] tracking-[0.18em] uppercase font-semibold hover:border-soft-earth transition-all duration-300 hover:-translate-y-0.5">
+          <Link to="/contact" className="px-10 py-4 border-2 border-soft-earth/30 text-soft-earth font-accent text-[12px] tracking-[0.18em] uppercase font-semibold hover:border-soft-earth transition-all duration-300 hover:-translate-y-0.5">
             Talk to Us First
-          </button>
+          </Link>
         </div>
       </section>
     </>

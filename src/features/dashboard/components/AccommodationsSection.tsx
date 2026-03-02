@@ -1,4 +1,5 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { Link } from 'react-router-dom';
 
 const rooms = [
   { image: '/gallery/room1.jpg' },
@@ -70,9 +71,9 @@ export function AccommodationsSection() {
           ref={cta.ref}
           className={`text-center mt-12 scroll-fade-in stagger-2 ${cta.isVisible ? 'visible' : ''}`}
         >
-          <a href="/gallery" className="btn-brush btn-brush-primary">
+          <Link to="/gallery" className="btn-brush btn-brush-primary">
             View Accommodations
-          </a>
+          </Link>
         </div>
       </div>
     </section>

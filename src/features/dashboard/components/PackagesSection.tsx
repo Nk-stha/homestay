@@ -1,5 +1,6 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const API_BASE = 'https://api.bardiaecofriendlyhomestay.com/api';
 
@@ -91,11 +92,11 @@ export function PackagesSection() {
                   )}
 
                   {/* Per-card brush button */}
-                  <a href="/packages" className={`btn-brush text-sm ${pkg.is_featured ? 'btn-brush-primary' : ''}`}
+                  <Link to="/packages" className={`btn-brush text-sm ${pkg.is_featured ? 'btn-brush-primary' : ''}`}
                     style={{ fontSize: '1.1rem', padding: '10px 24px' }}
                   >
                     Explore
-                  </a>
+                  </Link>
                 </div>
               </div>
             );
@@ -106,9 +107,9 @@ export function PackagesSection() {
           ref={cta.ref}
           className={`text-center mt-16 scroll-fade-in stagger-2 ${cta.isVisible ? 'visible' : ''}`}
         >
-          <a href="/packages" className="btn-brush btn-brush-primary">
+          <Link to="/packages" className="btn-brush btn-brush-primary">
             See all packages
-          </a>
+          </Link>
         </div>
       </div>
     </section>

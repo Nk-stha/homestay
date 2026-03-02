@@ -1,12 +1,14 @@
+import { Link } from 'react-router-dom';
+
 export function ContactButtons() {
   return (
     <div className="fixed bottom-8 right-8 z-50 flex items-center gap-4">
-      <a
+      <Link
         className="bg-white text-secondary font-bold text-xs uppercase px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 transition-colors"
-        href="#contact"
+        to="/contact"
       >
         Contact Us!
-      </a>
+      </Link>
       <button
         className="bg-[#5c7a45] p-3 rounded-full text-white shadow-lg hover:bg-[#4a6338] transition-colors"
         type="button"

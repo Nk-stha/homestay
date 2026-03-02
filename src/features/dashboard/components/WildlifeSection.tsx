@@ -1,5 +1,6 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const wildlifeImages = [
   '/bird.jpg',
@@ -80,9 +81,9 @@ export function WildlifeSection() {
         </div>
 
         <div className={`scroll-fade-in stagger-4 ${content.isVisible ? 'visible' : ''}`}>
-          <a href="/gallery" className="btn-brush btn-brush-gold">
+          <Link to="/gallery" className="btn-brush btn-brush-gold">
             Our Gallery
-          </a>
+          </Link>
         </div>
       </div>
     </section>
