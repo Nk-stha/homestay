@@ -22,7 +22,7 @@ export function TestimonialSection() {
         </div>
 
         <blockquote className="quote-decorative font-display text-2xl md:text-4xl text-gray-200 italic leading-relaxed mb-10 font-light">
-          I would recommend this place to anyone who wants a more authentic place in Bardia, but still have the luxuries of home with amazing food!
+          I would recommend this place to anyone who wants authentic place in Bardia, but still have the luxuries of home with amazing food!
         </blockquote>
 
         <div className="divider-organic" />

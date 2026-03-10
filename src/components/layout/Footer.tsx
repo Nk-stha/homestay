@@ -22,7 +22,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-xs text-white/60">Copyright Bardia Eco-Friendly Homestay 2024</div>
+          <div className="text-xs text-white/60">Copyright Bardia Eco-Friendly Homestay 2026</div>
         </div>
       </div>
     </footer>

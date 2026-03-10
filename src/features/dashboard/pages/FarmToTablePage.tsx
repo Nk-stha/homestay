@@ -12,12 +12,12 @@ const PRINCIPLES = [
 ];
 
 const MENU_ITEMS = [
-  { category: 'Garden Fresh', name: 'Farm Salad', ingredients: 'Lettuce, tomatoes, cucumber, radish, mint — all picked this morning', gradient: 'linear-gradient(135deg, #4A6741 0%, #2A3E27 100%)' },
-  { category: 'Daily Staple', name: 'Organic Dal', ingredients: 'Lentils from our partner farm, spiced with garden herbs and ghee', gradient: 'linear-gradient(135deg, #C8843A 0%, #B85C2C 100%)' },
-  { category: 'Dessert', name: 'Seasonal Fruits', ingredients: 'Whatever is ripe — papaya, banana, guava, or mango depending on the month', gradient: 'linear-gradient(135deg, #E09A50 0%, #C8843A 100%)' },
-  { category: 'Beverages', name: 'Forest Tea', ingredients: 'Lemongrass, ginger, tulsi, mint — brewed fresh every evening', gradient: 'linear-gradient(135deg, #7AADA8 0%, #4A6741 100%)' },
-  { category: 'Dinner Special', name: 'Roasted Vegetables', ingredients: 'Eggplant, peppers, zucchini — charred over wood fire', gradient: 'linear-gradient(135deg, #3D2B1F 0%, #B85C2C 100%)' },
-  { category: 'Complete Meal', name: 'Forest Thali', ingredients: 'A plate that changes daily — 5 preparations, all organic, all from the farm', gradient: 'linear-gradient(135deg, #2A3E27 0%, #4A6741 100%)' },
+  { category: 'Garden Fresh', name: 'Farm Salad', ingredients: 'Lettuce, tomatoes, cucumber, radish, mint — all picked this morning', image: '/farmtotable/salad.jpg' },
+  { category: 'Daily Staple', name: 'Organic Dal', ingredients: 'Lentils from our partner farm, spiced with garden herbs and ghee', image: '/farmtotable/dal.jpg' },
+  { category: 'Dessert', name: 'Seasonal Fruits', ingredients: 'Whatever is ripe — papaya, banana, guava, or mango depending on the month', image: '/farmtotable/fruit.webp' },
+  { category: 'Beverages', name: 'Forest Tea', ingredients: 'Lemongrass, ginger, tulsi, mint — brewed fresh every evening', image: '/farmtotable/tea.jpg' },
+  { category: 'Dinner Special', name: 'Roasted Vegetables', ingredients: 'Eggplant, peppers, zucchini — charred over wood fire', image: '/farmtotable/roastedvegetable.jpg' },
+  { category: 'Complete Meal', name: 'Forest Thali', ingredients: 'A plate that changes daily — 5 preparations, all organic, all from the farm', image: '/farmtotable/ForestThali.jpg' },
 ];
 
 const WELLNESS_FEATURES = [
@@ -40,14 +40,12 @@ export function FarmToTablePage() {
   return (
     <>
       {/* ════════ HERO ════════ */}
-      <section className="relative min-h-[70vh] md:h-screen flex items-center overflow-hidden">
-        <div
-          className="absolute inset-0 z-0"
-          style={{ background: 'linear-gradient(135deg, #4A6741 0%, #2A3E27 50%, #1C2B1A 100%)' }}
-        >
-          {/* Replace gradient with farm image: url('/farm/hero.jpg') */}
-          <div className="absolute inset-0 bg-gradient-to-r from-deep-forest/85 via-transparent to-transparent" />
-        </div>
+      <section
+        className="relative min-h-[70vh] md:h-screen flex items-center overflow-hidden parallax-fixed"
+        style={{
+          backgroundImage: `linear-gradient(to right, rgba(28, 43, 26, 0.85), transparent), url('/farmtotable/hero.jpg')`,
+        }}
+      >
 
         <div
           ref={hero.ref}
@@ -103,11 +101,8 @@ export function FarmToTablePage() {
             </p>
           </div>
 
-          <div
-            className="h-[350px] sm:h-[450px] md:h-[600px] rounded-lg overflow-hidden shadow-xl"
-            style={{ background: 'linear-gradient(135deg, #E09A50 0%, #C8843A 100%)' }}
-          >
-            {/* Replace with farm image */}
+          <div className="h-[350px] sm:h-[450px] md:h-[600px] rounded-lg overflow-hidden shadow-xl">
+            <img src="/farmtotable/farming.jpg" alt="Organic farming" className="w-full h-full object-cover" />
           </div>
         </div>
       </section>
@@ -163,9 +158,9 @@ export function FarmToTablePage() {
             <div
               key={i}
               className={`relative h-[300px] sm:h-[350px] md:h-[400px] overflow-hidden cursor-pointer group scroll-scale-in stagger-${(i % 5) + 1} ${menu.isVisible ? 'visible' : ''}`}
-              style={{ background: item.gradient }}
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-forest/95 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+              <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-deep-forest/95 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-8 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-400">
                 <span className="font-accent text-[9px] tracking-[0.22em] uppercase text-golden-hour mb-2">
                   {item.category}
                 </span>
@@ -220,38 +215,37 @@ export function FarmToTablePage() {
           </div>
 
           <div className="relative">
-            <div
-              className="h-[350px] sm:h-[450px] lg:h-[520px] rounded-card overflow-hidden shadow-xl"
-              style={{ background: 'linear-gradient(135deg, #7AADA8 0%, #4A6741 100%)' }}
-            />
-            <div
-              className="hidden md:block absolute -bottom-10 -right-10 w-[280px] h-[200px] rounded-card overflow-hidden shadow-xl border-4 border-background-light dark:border-background-dark"
-              style={{ background: 'linear-gradient(135deg, #E09A50 0%, #C8843A 100%)' }}
-            />
+            <div className="h-[350px] sm:h-[450px] lg:h-[520px] rounded-card overflow-hidden shadow-xl">
+              <img src="/farmtotable/rice.jpg" alt="Fresh organic rice" className="w-full h-full object-cover" />
+            </div>
+            <div className="hidden md:block absolute -bottom-10 -right-10 w-[280px] h-[200px] rounded-card overflow-hidden shadow-xl border-4 border-background-light dark:border-background-dark">
+              <img src="/farmtotable/tomato.jpg" alt="Fresh tomatoes" className="w-full h-full object-cover" />
+            </div>
           </div>
         </div>
       </section>
 
       {/* ════════ CTA ════════ */}
-      <section className="py-20 md:py-28 px-6 sm:px-10 text-center relative overflow-hidden">
-        <div className="absolute -top-48 -right-48 w-[600px] h-[600px] rounded-full bg-gradient-radial from-golden-hour/8 to-transparent pointer-events-none" />
+      <section
+        className="py-20 md:py-28 px-6 sm:px-10 text-center relative overflow-hidden parallax-fixed min-h-[50vh] flex items-center justify-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('/farmtotable/farming.jpg')`,
+        }}
+      >
 
         <div
           ref={cta.ref}
           className={`max-w-2xl mx-auto relative z-10 scroll-fade-in ${cta.isVisible ? 'visible' : ''}`}
         >
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-bark-soil leading-tight mb-6">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-soft-earth leading-tight mb-6">
             Taste the difference
             <br />
             <em className="text-golden-hour italic">real food</em> makes
           </h2>
-          <p className="text-base font-light leading-relaxed-plus text-gray-500 mb-10">
+          <p className="text-base font-light leading-relaxed-plus text-soft-earth/70 mb-10">
             Book your stay and experience meals the way they're meant to be —
             grown with care, cooked with intention, served with warmth.
           </p>
-          <button className="btn-brush btn-brush-gold">
-            Reserve Your Table
-          </button>
         </div>
       </section>
     </>

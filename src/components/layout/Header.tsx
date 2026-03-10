@@ -60,7 +60,7 @@ export function Header() {
           Where Silence <br /> Meets the Soul
         </h2>
         <p className="text-gray-300 text-lg md:text-xl font-light tracking-wide mb-10 max-w-2xl mx-auto drop-shadow-lg">
-          Experience wildlife at its fullest at Sunsetview. A boutique lodge nestled on the edge of the Corbett Forest Reserve.
+          Experience wildlife at its fullest at Bardia Eco-Friendly Homestay. A homestay nestled on the edge of the Bardia National Park.
         </p>
         <div className="animate-bounce mt-12">
           <svg className="w-10 h-10 mx-auto text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
