@@ -1,18 +1,8 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-
-  # Ignore API or other backend routes if needed (optional)
-  # RewriteCond %{REQUEST_URI} !^/api/ [NC]
-
-  # If the request is for a valid directory, serve it
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^.*$ - [NC,L]
-
-  # If the request is for a valid file, serve it
-  RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^.*$ - [NC,L]
-
-  # For everything else (like /gallery or /packages), serve index.html
-  RewriteRule ^(.*)$ index.html [QSA,L]
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
 </IfModule>
