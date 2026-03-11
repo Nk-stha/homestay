@@ -1,5 +1,6 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useApi } from '@/hooks/useApi';
 
 /* ── Types ── */
 
@@ -55,28 +56,20 @@ export function ContactPage() {
   const formSection = useScrollAnimation();
   const social = useScrollAnimation();
 
-  const [contactMethods, setContactMethods] = useState<ContactMethod[]>([]);
-  const [socials, setSocials] = useState<SocialLink[]>([]);
-  const [packages, setPackages] = useState<ApiPackage[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetch(`${API_BASE}/contact-methods/list`)
-      .then((res) => res.json())
-      .then((data) => setContactMethods(data.data || []))
-      .catch((err) => console.error('Failed to fetch contact methods:', err));
+  const { data: contactMethods = [] } = useApi<ContactMethod[]>({
+    url: `${API_BASE}/contact-methods/list`
+  });
 
-    fetch(`${API_BASE}/social-links/list`)
-      .then((res) => res.json())
-      .then((data) => setSocials(data.data || []))
-      .catch((err) => console.error('Failed to fetch social links:', err));
+  const { data: socials = [] } = useApi<SocialLink[]>({
+    url: `${API_BASE}/social-links/list`
+  });
 
-    fetch(`${API_BASE}/packages/list`)
-      .then((res) => res.json())
-      .then((data) => setPackages(data.data || []))
-      .catch((err) => console.error('Failed to fetch packages:', err));
-  }, []);
+  const { data: packages = [] } = useApi<ApiPackage[]>({
+    url: `${API_BASE}/packages/list`
+  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -152,7 +145,7 @@ export function ContactPage() {
           ref={methods.ref}
           className={`grid grid-cols-1 md:grid-cols-3 gap-8 scroll-fade-in ${methods.isVisible ? 'visible' : ''}`}
         >
-          {contactMethods.map((m, i) => {
+          {(contactMethods || []).map((m, i) => {
             const href = getHref(m);
             return (
               <div
@@ -280,16 +273,17 @@ export function ContactPage() {
                   </label>
                   <div className="relative">
                     <select
-                      name="preferred_package"
-                      required
-                      className="w-full py-4 px-5 pr-10 bg-soft-earth/5 border border-soft-earth/15 rounded-lg text-soft-earth focus:border-golden-hour focus:bg-soft-earth/[0.08] transition-all duration-300 outline-none appearance-none cursor-pointer [&>option]:bg-[#1C2B1A] [&>option]:text-soft-earth"
-                    >
-                      <option value="">Select a package</option>
-                      {packages.map((p) => (
-                        <option key={p.id} value={p.name}>{p.name} — {p.duration}</option>
-                      ))}
-                    </select>
-                    <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-soft-earth/40 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        id="preferred_package"
+                        name="preferred_package"
+                        className="w-full bg-soft-earth/5 border border-soft-earth/10 rounded-xl px-5 py-4 text-soft-earth focus:outline-none focus:border-golden-hour transition-colors appearance-none cursor-pointer"
+                      >
+                        <option value="" className="bg-deep-forest text-soft-earth">General Inquiry</option>
+                        {(packages || []).map((pkg) => (
+                          <option key={pkg.id} value={pkg.name} className="bg-deep-forest text-soft-earth">
+                            {pkg.name}
+                          </option>
+                        ))}
+                      </select><svg className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-soft-earth/40 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                   </div>
                 </div>
 
@@ -366,7 +360,7 @@ export function ContactPage() {
           </p>
 
           <div className="flex justify-center gap-5 flex-wrap">
-            {socials.map((s) => (
+            {(socials || []).map((s) => (
               <a
                 key={s.id}
                 href={s.href}

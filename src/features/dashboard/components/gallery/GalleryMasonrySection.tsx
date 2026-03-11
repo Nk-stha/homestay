@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useApi } from '@/hooks/useApi';
 
 /* ── Types ── */
 
@@ -28,26 +29,30 @@ const HEIGHTS = ['380px', '480px', '320px', '420px', '540px', '360px', '460px', 
 
 export function GalleryMasonrySection() {
   const section = useScrollAnimation();
-  const [categories, setCategories] = useState<GalleryCategory[]>([]);
-  const [images, setImages] = useState<GalleryImage[]>([]);
   const [activeSlug, setActiveSlug] = useState('');
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
 
-  useEffect(() => {
-    Promise.all([
-      fetch(`${API_BASE}/gallery-categories/list`).then((r) => r.json()),
-      fetch(`${API_BASE}/gallery-images/list`).then((r) => r.json()),
-    ])
-      .then(([catData, imgData]) => {
-        const cats: GalleryCategory[] = catData.data || [];
-        setCategories(cats);
-        setImages(imgData.data || []);
-        if (cats.length > 0) setActiveSlug(cats[0].slug);
-      })
-      .catch((err) => console.error('Failed to fetch gallery:', err));
-  }, []);
+  const { data: categories = [], loading: loadingCats } = useApi<GalleryCategory[]>({
+    url: `${API_BASE}/gallery-categories/list`
+  });
 
-  const filtered = images.filter((img) => img.categorySlug === activeSlug);
+  const { data: images = [], loading: loadingImgs } = useApi<GalleryImage[]>({
+    url: `${API_BASE}/gallery-images/list`
+  });
+
+  const loading = loadingCats || loadingImgs;
+
+  const safetyCategories = categories || [];
+  useEffect(() => {
+    if (safetyCategories.length > 0 && !activeSlug) {
+      setActiveSlug(safetyCategories[0].slug);
+    }
+  }, [categories, activeSlug, safetyCategories]);
+
+  const safeCategories = categories || [];
+  const safeImages = images || [];
+
+  const filtered = safeImages.filter((img) => img.categorySlug === activeSlug);
   const visibleImages = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
 
@@ -66,9 +71,9 @@ export function GalleryMasonrySection() {
       <div className="divider-organic mb-12" />
 
       {/* Tabs */}
-      {categories.length > 1 && (
+      {safeCategories.length > 1 && (
         <div className="flex justify-center gap-8 mb-14">
-          {categories.map((cat) => (
+          {safeCategories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => handleTabChange(cat.slug)}
@@ -89,8 +94,19 @@ export function GalleryMasonrySection() {
         ref={section.ref}
         className={`scroll-fade-in ${section.isVisible ? 'visible' : ''}`}
       >
-        <div className="masonry-grid" key={activeSlug}>
-          {visibleImages.map((img, index) => (
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-32">
+            <div className="w-12 h-12 border-4 border-golden-hour/20 border-t-golden-hour rounded-full animate-spin mb-4" />
+            <p className="text-gray-400 font-accent text-xs tracking-widest uppercase">Loading gallery...</p>
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-20 text-gray-400 font-accent text-sm tracking-widest uppercase">
+            No images found
+          </div>
+        ) : (
+          <>
+            <div className="masonry-grid" key={activeSlug}>
+              {visibleImages.map((img, index) => (
             <div key={img.id} className="masonry-item group">
               <div
                 className="w-full overflow-hidden rounded-card"
@@ -107,16 +123,18 @@ export function GalleryMasonrySection() {
           ))}
         </div>
 
-        {/* See More Button */}
-        {hasMore && (
-          <div className="text-center mt-14">
-            <button
-              onClick={handleSeeMore}
-              className="btn-brush btn-brush-gold"
-            >
-              See More
-            </button>
-          </div>
+            {/* See More Button */}
+            {hasMore && (
+              <div className="text-center mt-14">
+                <button
+                  onClick={handleSeeMore}
+                  className="btn-brush btn-brush-gold"
+                >
+                  See More
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useApi } from '@/hooks/useApi';
 import { Link } from 'react-router-dom';
 
 /* ── Types matching API responses ── */
@@ -39,40 +40,28 @@ export function PackagesPage() {
   const grid = useScrollAnimation();
   const ctaRef = useScrollAnimation();
 
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [packages, setPackages] = useState<Package[]>([]);
+  const { data: categories = [], loading: loadingCats } = useApi<Category[]>({
+    url: `${API_BASE}/package-categories/list`
+  });
+
+  const { data: packages = [], loading: loadingPkgs } = useApi<Package[]>({
+    url: `${API_BASE}/packages/list`
+  });
+
   const [activeSlug, setActiveSlug] = useState<string>('');
-  const [loading, setLoading] = useState(true);
+  
+  const loading = loadingCats || loadingPkgs;
+  const safeCategories = categories || [];
+  const safePackages = packages || [];
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const [catRes, pkgRes] = await Promise.all([
-          fetch(`${API_BASE}/package-categories/list`),
-          fetch(`${API_BASE}/packages/list`),
-        ]);
-        const catData = await catRes.json();
-        const pkgData = await pkgRes.json();
-
-        const cats: Category[] = catData.data || [];
-        const pkgs: Package[] = pkgData.data || [];
-
-        setCategories(cats);
-        setPackages(pkgs);
-        if (cats.length > 0) setActiveSlug(cats[0].slug);
-      } catch (err) {
-        console.error('Failed to fetch packages:', err);
-      } finally {
-        setLoading(false);
-      }
+    if (safeCategories.length > 0 && !activeSlug) {
+      setActiveSlug(safeCategories[0].slug);
     }
-    fetchData();
-  }, []);
+  }, [safeCategories, activeSlug]);
 
-  const filtered = packages.filter((p) => p.category_slug === activeSlug);
+  const filtered = safePackages.filter((p) => p.category_slug === activeSlug);
 
-  const formatPrice = (price: number) =>
-    price.toLocaleString('en-IN');
 
   return (
     <>
@@ -103,21 +92,23 @@ export function PackagesPage() {
       </section>
 
       {/* ════════ TABS ════════ */}
-      {categories.length > 1 && (
-        <div className="flex justify-center gap-8 mb-14 px-4">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveSlug(cat.slug)}
-              className={`font-accent text-xs tracking-[0.16em] uppercase pb-2 border-b-2 transition-all duration-300 ${
-                activeSlug === cat.slug
-                  ? 'text-bark-soil dark:text-soft-earth border-golden-hour font-semibold'
-                  : 'text-gray-400 border-transparent hover:text-gray-600'
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
+      {safeCategories.length > 1 && (
+        <div className="flex justify-center gap-8 mb-14 px-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar">
+          {safeCategories
+            .filter((cat) => safePackages.some((p) => p.category_slug === cat.slug))
+            .map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveSlug(cat.slug)}
+                className={`font-accent text-xs tracking-[0.16em] uppercase pb-2 border-b-2 whitespace-nowrap snap-center transition-all duration-300 ${
+                  activeSlug === cat.slug
+                    ? 'text-bark-soil dark:text-soft-earth border-golden-hour font-semibold'
+                    : 'text-gray-400 border-transparent hover:text-gray-600'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
         </div>
       )}
 
@@ -125,12 +116,12 @@ export function PackagesPage() {
       <section className="px-4 sm:px-10 pb-20 md:pb-28 max-w-[1400px] mx-auto">
         <div
           ref={grid.ref}
-          key={activeSlug}
           className={`scroll-fade-in ${grid.isVisible ? 'visible' : ''}`}
         >
           {loading ? (
-            <div className="text-center py-20 text-gray-400 font-accent text-sm tracking-widest uppercase">
-              Loading packages...
+            <div className="flex flex-col items-center justify-center py-32">
+              <div className="w-12 h-12 border-4 border-golden-hour/20 border-t-golden-hour rounded-full animate-spin mb-4" />
+              <p className="text-gray-400 font-accent text-xs tracking-widest uppercase">Loading packages...</p>
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-20 text-gray-400 font-accent text-sm tracking-widest uppercase">
@@ -138,6 +129,7 @@ export function PackagesPage() {
             </div>
           ) : (
             <div
+              key={activeSlug}
               className={`grid grid-cols-1 ${filtered.length === 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' : 'lg:grid-cols-3'} gap-8`}
             >
             {filtered.map((pkg, i) => (
@@ -159,14 +151,7 @@ export function PackagesPage() {
 
                   <span className="text-5xl mb-5 block relative z-10 animate-float">{pkg.icon}</span>
                   <h3 className="font-display text-4xl text-bark-soil dark:text-soft-earth mb-2 relative z-10">{pkg.name}</h3>
-                  <p className="font-accent text-[11px] tracking-[0.18em] uppercase text-gray-400 mb-6 relative z-10">{pkg.duration}</p>
-
-                  <div className="flex items-baseline gap-2 mb-2 relative z-10">
-                    <span className="text-2xl text-golden-hour">{pkg.currency}</span>
-                    <span className="font-display text-5xl font-light text-golden-hour leading-none">{formatPrice(pkg.price)}</span>
-                    <span className="text-sm text-gray-400">/ person</span>
-                  </div>
-                  <p className="text-xs text-gray-400 italic relative z-10">{pkg.price_note}</p>
+                  <p className="font-accent text-[11px] tracking-[0.18em] uppercase text-gray-400 relative z-10">{pkg.duration}</p>
                 </div>
 
                 {/* Body */}
